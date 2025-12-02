@@ -45,40 +45,49 @@ class UsuarioRepository
     }
 
     public function crear(array $datos): void
-    {
-        $usuarios = $this->all();
+{
+    $usuarios = $this->all();
 
-        // Validaciones únicas
-        if ($usuarios->firstWhere('username', $datos['username'] ?? '')) {
-            throw new \Exception('El nombre de usuario ya existe');
-        }
-        if ($usuarios->firstWhere('email', $datos['email'] ?? '')) {
-            throw new \Exception('El correo ya está registrado');
-        }
-
-        $datos = array_merge([
-            'id'            => (string) Str::uuid(),
-            'username'      => '',
-            'password'      => '',
-            'email'         => '',
-            'nombre'        => '',
-            'apellido_p'    => '',
-            'apellido_m'    => '',
-            'sexo'          => null,
-            'edad'          => null,
-            'tipo_usuario'  => 'checador',
-            'estado'        => 'activo',
-            'created_at'    => now()->format('Y-m-d H:i:s'),
-            'updated_at'    => now()->format('Y-m-d H:i:s'),
-        ], $datos);
-
-        if (!empty($datos['password'])) {
-            $datos['password'] = Hash::make($datos['password']);
-        }
-
-        $usuarios->push($datos);
-        $this->guardarTodos($usuarios);
+    // Validaciones únicas
+    if ($usuarios->firstWhere('username', $datos['username'] ?? '')) {
+        throw new \Exception('El nombre de usuario ya existe');
     }
+    if ($usuarios->firstWhere('email', $datos['email'] ?? '')) {
+        throw new \Exception('El correo ya está registrado');
+    }
+
+    // === GENERAR ID SECUENCIAL 001, 002, 003... ===
+    $ultimoId = $usuarios->max('id'); // Busca el ID más alto que exista
+    if (!$ultimoId || !preg_match('/^\d+$/', $ultimoId)) {
+        $nuevoNumero = 1;
+    } else {
+        $nuevoNumero = (int)$ultimoId + 1;
+    }
+    $datos['id'] = str_pad($nuevoNumero, 3, '0', STR_PAD_LEFT); // 001, 002, 005...
+    // ===============================================
+
+    $datos = array_merge([
+        'username'      => '',
+        'password'      => '',
+        'email'         => '',
+        'nombre'        => '',
+        'apellido_p'    => '',
+        'apellido_m'    => '',
+        'sexo'          => null,
+        'edad'          => null,
+        'tipo_usuario'  => 'checador',
+        'estado'        => 'activo',
+        'created_at'    => now()->format('Y-m-d H:i:s'),
+        'updated_at'    => now()->format('Y-m-d H:i:s'),
+    ], $datos);
+
+    if (!empty($datos['password'])) {
+        $datos['password'] = Hash::make($datos['password']);
+    }
+
+    $usuarios->push($datos);
+    $this->guardarTodos($usuarios);
+}
 
     public function actualizar(string $id, array $datos): bool
     {
