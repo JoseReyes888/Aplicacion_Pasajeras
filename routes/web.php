@@ -1,11 +1,31 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ControllerLogin;
 use App\Http\Controllers\ControllerUsuarios;
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// ========== LOGIN ==========
+Route::get('/login', [ControllerLogin::class, 'login'])->name('login');
+Route::post('/login', [ControllerLogin::class, 'attempt']);
+Route::post('/logout', [ControllerLogin::class, 'logout'])->name('logout');
 
-Route::get('/usuarios', [ControllerUsuarios::class, 'index'])->name('usuarios');
-Route::get('/registro', [App\Http\Controllers\ControllerRegistro::class, 'index'])->name('registro');
+// ========== RUTAS PROTEGIDAS ==========
+Route::middleware('auth.json')->group(function () {
+
+    // Página principal
+    Route::get('/', [ControllerUsuarios::class, 'index'])->name('usuarios.index');
+    Route::get('/usuarios', [ControllerUsuarios::class, 'index'])->name('usuarios');
+
+    // CREAR usuario → POST a /usuarios
+    Route::post('/usuarios', [ControllerUsuarios::class, 'store'])->name('usuarios.store');
+
+    // EDITAR: obtener datos (GET)
+    Route::get('/usuarios/{id}/edit', [ControllerUsuarios::class, 'edit']);
+
+    // ACTUALIZAR usuario → Acepta tanto PUT como POST (para formularios HTML)
+    Route::match(['PUT', 'PATCH', 'POST'], '/usuarios/{id}', [ControllerUsuarios::class, 'update'])
+         ->name('usuarios.update');
+
+    // Tu otra vista
+    Route::get('/registro', [App\Http\Controllers\ControllerRegistro::class, 'index'])->name('registro');
+});

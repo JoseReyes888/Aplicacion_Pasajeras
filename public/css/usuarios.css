@@ -1,4 +1,4 @@
-        * {
+            * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
@@ -271,6 +271,7 @@
             margin-bottom: 8px;
             font-weight: 600;
             color: #555;
+            font-size: 15px;
         }
 
         .form-control {
@@ -279,12 +280,14 @@
             border: 1px solid #ddd;
             border-radius: 8px;
             font-size: 15px;
-            transition: border 0.3s;
+            transition: border 0.3s, box-shadow 0.3s;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
         }
 
         .form-control:focus {
             border-color: #b21f1f;
             outline: none;
+            box-shadow: 0 0 0 3px rgba(178, 31, 31, 0.1);
         }
 
         .form-row {
@@ -294,6 +297,7 @@
 
         .form-row .form-group {
             flex: 1;
+            margin-bottom: 20px;
         }
 
         .modal-footer {
@@ -332,20 +336,70 @@
         }
 
         @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+
             .header {
                 flex-direction: column;
                 gap: 15px;
                 text-align: center;
+                padding: 15px 20px;
+            }
+            
+            .logo h1 {
+                font-size: 22px;
+            }
+            
+            .logo p {
+                font-size: 12px;
             }
             
             .user-info {
                 justify-content: center;
+                width: 100%;
+            }
+            
+            .user-details {
+                text-align: center;
+            }
+            
+            .main-content {
+                padding: 20px 15px;
+                border-radius: 0 0 10px 10px;
             }
             
             .page-title {
                 flex-direction: column;
                 gap: 15px;
-                align-items: flex-start;
+                align-items: stretch;
+                margin-bottom: 20px;
+                padding-bottom: 15px;
+            }
+            
+            .page-title h2 {
+                font-size: 20px;
+            }
+            
+            .page-title .btn {
+                width: 100%;
+                justify-content: center;
+            }
+            
+            .search-container {
+                flex-direction: column;
+                gap: 10px;
+                margin-bottom: 15px;
+            }
+            
+            .search-box input {
+                font-size: 16px;
+                padding: 12px 15px 12px 40px;
+            }
+            
+            .search-container .btn {
+                width: 100%;
+                justify-content: center;
             }
             
             .form-row {
@@ -353,11 +407,229 @@
                 gap: 0;
             }
             
+            .form-row .form-group {
+                margin-bottom: 15px;
+                flex: none;
+            }
+            
+            .form-group {
+                margin-bottom: 15px;
+            }
+            
+            .form-group label {
+                font-size: 14px;
+                margin-bottom: 8px;
+            }
+            
+            .form-control {
+                font-size: 16px;
+                padding: 14px 12px;
+                border-radius: 6px;
+            }
+            
+            .form-control:focus {
+                box-shadow: 0 0 0 2px rgba(178, 31, 31, 0.15);
+            }
+            
             th, td {
-                padding: 10px 8px;
+                padding: 12px 8px;
+                font-size: 13px;
+            }
+            
+            th {
+                font-size: 12px;
             }
             
             .actions {
                 flex-direction: column;
+                gap: 8px;
+            }
+            
+            .btn-sm {
+                width: 100%;
+                justify-content: center;
+                padding: 8px 12px;
+                font-size: 12px;
+            }
+            
+            .status, .user-type {
+                font-size: 11px;
+                padding: 4px 8px;
+            }
+            
+            .modal-content {
+                width: 95%;
+                max-width: none;
+                max-height: 90vh;
+                overflow-y: auto;
+            }
+            
+            .modal-header {
+                padding: 15px 20px;
+                position: sticky;
+                top: 0;
+                z-index: 10;
+            }
+            
+            .modal-header h3 {
+                font-size: 18px;
+            }
+            
+            .modal-body {
+                padding: 20px;
+                overflow-y: auto;
+            }
+            
+            .modal-footer {
+                padding: 15px 20px;
+                flex-direction: column-reverse;
+                gap: 10px;
+                position: sticky;
+                bottom: 0;
+                background: #f9f9f9;
+                z-index: 10;
+            }
+            
+            .modal-footer .btn {
+                width: 100%;
+                justify-content: center;
+                padding: 12px 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 5px;
+            }
+
+            .container {
+                margin: 0;
+            }
+
+            .header {
+                padding: 12px 15px;
+                gap: 10px;
+            }
+            
+            .logo h1 {
+                font-size: 18px;
+            }
+            
+            .logo p {
+                font-size: 11px;
+            }
+            
+            .user-info {
+                gap: 10px;
+            }
+            
+            .user-info img {
+                width: 35px;
+                height: 35px;
+            }
+            
+            .main-content {
+                padding: 15px 12px;
+                border-radius: 0 0 8px 8px;
+            }
+            
+            .page-title {
+                margin-bottom: 15px;
+                padding-bottom: 10px;
+            }
+            
+            .page-title h2 {
+                font-size: 18px;
+            }
+            
+            .btn {
+                padding: 10px 15px;
+                font-size: 12px;
+            }
+            
+            .btn i {
+                font-size: 12px;
+            }
+            
+            .search-box input {
+                font-size: 14px;
+                padding: 10px 12px 10px 35px;
+            }
+            
+            .table-container {
+                border-radius: 8px;
+                overflow-x: auto;
+            }
+            
+            table {
+                min-width: 500px;
+            }
+            
+            th, td {
+                padding: 10px 6px;
+                font-size: 12px;
+            }
+            
+            th {
+                font-size: 11px;
+            }
+            
+            .form-row {
+                gap: 0;
+            }
+            
+            .form-row .form-group {
+                margin-bottom: 12px;
+            }
+            
+            .form-group {
+                margin-bottom: 12px;
+            }
+            
+            .form-group label {
+                font-size: 12px;
+                margin-bottom: 6px;
+                font-weight: 500;
+            }
+            
+            .form-control {
+                padding: 12px 12px;
+                font-size: 16px;
+                border-radius: 6px;
+            }
+            
+            .form-control:focus {
+                box-shadow: 0 0 0 2px rgba(178, 31, 31, 0.2);
+            }
+            
+            .modal-header h3 {
+                font-size: 16px;
+            }
+            
+            .modal-content {
+                max-height: 95vh;
+            }
+            
+            .modal-body {
+                padding: 15px;
+            }
+            
+            .modal-footer {
+                padding: 12px 15px;
+                gap: 8px;
+            }
+            
+            .modal-footer .btn {
+                padding: 11px 15px;
+                font-size: 11px;
+            }
+            
+            .close {
+                font-size: 20px;
+            }
+            
+            .status, .user-type {
+                font-size: 10px;
+                padding: 3px 6px;
             }
         }
