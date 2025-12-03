@@ -28,4 +28,10 @@ Route::middleware('auth.json')->group(function () {
 
     // Tu otra vista
     Route::get('/registro', [App\Http\Controllers\ControllerRegistro::class, 'index'])->name('registro');
+    Route::get('/mostrarRegistro', [App\Http\Controllers\ControllerMostrarRegistro::class, 'index'])->name('mostrarRegistro');
+
+    Route::get('/mostrar-registro', [App\Http\Controllers\ControllerMostrarRegistro::class, 'index'])
+     ->name('mostrar.registro')
+     ->middleware('auth.json'); // o el middleware que uses
+
 });
